@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCoreIdentity
+namespace NetCoreIdentity_Ep2
 {
     public class Startup
     {
@@ -22,13 +22,7 @@ namespace NetCoreIdentity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            services.AddAuthentication("CookieAuth")
-                    .AddCookie("CookieAuth", (cookie) =>
-                    {
-                        cookie.Cookie.Name = "Grandmas.Cookie";
-                        cookie.LoginPath = "/Home/Authenticate";
-                    });
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,15 +41,11 @@ namespace NetCoreIdentity
 
             app.UseRouting();
 
-            // who are you?
-            app.UseAuthentication();
-
-            // is this user allowed?
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
             });
         }
     }

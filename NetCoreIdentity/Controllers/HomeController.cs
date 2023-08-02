@@ -33,7 +33,7 @@ namespace NetCoreIdentity.Controllers
             var licenseClaims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name,"Danish"),
-                new Claim("DrivigLicense","A+"),
+                new Claim("DrivingLicense","A+"),
             };
 
             var grandmaIdentity = new ClaimsIdentity(grandmaClaims, "Grandma Identity");
