@@ -25,7 +25,6 @@ namespace NetCoreIdentity_Ep2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(config =>
             {
 
@@ -43,8 +42,16 @@ namespace NetCoreIdentity_Ep2
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
             })
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(cookie =>
+            {
+                cookie.LoginPath = "/Home/Login";
+                cookie.Cookie.Name = "Identity Cookie";
+            });
+
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
