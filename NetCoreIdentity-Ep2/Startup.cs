@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NETCore.MailKit.Extensions;
+using NETCore.MailKit.Infrastructure.Internal;
 using NetCoreIdentity_Ep2.Data;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,7 @@ namespace NetCoreIdentity_Ep2
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -41,6 +44,7 @@ namespace NetCoreIdentity_Ep2
                 config.Password.RequireDigit = false;
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
+                config.SignIn.RequireConfirmedEmail = true;
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
@@ -48,7 +52,12 @@ namespace NetCoreIdentity_Ep2
             services.ConfigureApplicationCookie(cookie =>
             {
                 cookie.LoginPath = "/Home/Login";
-                cookie.Cookie.Name = "Identity Cookie";
+                cookie.Cookie.Name = "Identity.Cookie";
+            });
+
+            services.AddMailKit(config =>
+            {
+                config.UseMailKit(Configuration.GetSection("Email").Get<MailKitOptions>());
             });
 
             services.AddControllersWithViews();

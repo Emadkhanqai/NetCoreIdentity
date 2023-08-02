@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NetCoreIdentity_Ep2.Data;
-using System.Collections.Generic;
-using System.Security.Claims;
+using NETCore.MailKit.Core;
 using System.Threading.Tasks;
 
 namespace NetCoreIdentity_Ep2.Controllers
@@ -14,11 +10,13 @@ namespace NetCoreIdentity_Ep2.Controllers
         // this provided UserManager class provide functionality to CRUD users
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
+        private readonly IEmailService emailService;
 
-        public HomeController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public HomeController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailService emailService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.emailService = emailService;
         }
 
         public IActionResult Index()
@@ -32,9 +30,9 @@ namespace NetCoreIdentity_Ep2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string userName, string password)
+        public async Task<IActionResult> Login(string username, string password)
         {
-            var user = await userManager.FindByNameAsync(userName);
+            var user = await userManager.FindByNameAsync(username);
 
             if (user != null)
             {
@@ -53,13 +51,13 @@ namespace NetCoreIdentity_Ep2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(string userName, string password)
+        public async Task<IActionResult> Register(string username, string password)
         {
             //create user
 
             var user = new IdentityUser
             {
-                UserName = userName,
+                UserName = username,
                 Email = "",
             };
 
@@ -67,16 +65,33 @@ namespace NetCoreIdentity_Ep2.Controllers
 
             if (result.Succeeded)
             {
-                // sign in the user
-            }
-            else
-            {
-
+                // Generate email token
+                var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                if (code != null)
+                {
+                    var link = Url.Action(nameof(VerifyEmail), "Home", new { userId = user.Id, code }, Request.Scheme, Request.Host.ToString());
+                    await emailService.SendAsync("test@test.com", "Verify Your Email", $"<a href=\"{link}\">Verify Email</a>", true);
+                    return RedirectToAction("EmailVerification");
+                }
             }
 
             // Register functionality
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> VerifyEmail(string userId, string code)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            if (user == null) return BadRequest();
+            var result = await userManager.ConfirmEmailAsync(user, code);
+            if (result.Succeeded)
+            {
+                return View();
+            }
+            return BadRequest();
+        }
+
+        public IActionResult EmailVerification() => View();
 
         public async Task<IActionResult> LogOut()
         {
