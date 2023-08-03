@@ -3,14 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreIdentity-Ep1", "NetCoreIdentity\NetCoreIdentity-Ep1.csproj", "{E45A6C0D-CACD-4C6C-A907-022C410C4ABD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreIdentity-Ep1", "NetCoreIdentity\NetCoreIdentity-Ep1.csproj", "{E45A6C0D-CACD-4C6C-A907-022C410C4ABD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreIdentity-Ep2", "NetCoreIdentity-Ep2\NetCoreIdentity-Ep2.csproj", "{FF87B3BA-CA59-462D-BE40-DE8CE5899456}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreIdentity-Ep2", "NetCoreIdentity-Ep2\NetCoreIdentity-Ep2.csproj", "{FF87B3BA-CA59-462D-BE40-DE8CE5899456}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{F00953F8-7593-4E93-A79C-C3D11E362C65}"
 	ProjectSection(SolutionItems) = preProject
 		NetCoreIdentity\.gitignore = NetCoreIdentity\.gitignore
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreIdentity-Ep4", "NetCoreIdentity-Ep4\NetCoreIdentity-Ep4.csproj", "{E6FD82A2-9788-4D6F-8776-3AD0B80D0AE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{FF87B3BA-CA59-462D-BE40-DE8CE5899456}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF87B3BA-CA59-462D-BE40-DE8CE5899456}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF87B3BA-CA59-462D-BE40-DE8CE5899456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6FD82A2-9788-4D6F-8776-3AD0B80D0AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6FD82A2-9788-4D6F-8776-3AD0B80D0AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6FD82A2-9788-4D6F-8776-3AD0B80D0AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6FD82A2-9788-4D6F-8776-3AD0B80D0AE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -33,6 +39,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E45A6C0D-CACD-4C6C-A907-022C410C4ABD} = {F00953F8-7593-4E93-A79C-C3D11E362C65}
 		{FF87B3BA-CA59-462D-BE40-DE8CE5899456} = {F00953F8-7593-4E93-A79C-C3D11E362C65}
+		{E6FD82A2-9788-4D6F-8776-3AD0B80D0AE2} = {F00953F8-7593-4E93-A79C-C3D11E362C65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B57C5923-9CD8-4080-BAD9-42686E7E5721}
